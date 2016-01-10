@@ -26,9 +26,11 @@ def formulate_request(url,base,to):
 def main():
     arguments = parse_arguments()
     if arguments['convert']:
-        base = arguments['FROM']
-        to = arguments['TO']
+        base = arguments['FROM'].upper()
+        to = arguments['TO'].upper()
         amount = arguments['--amount']
+        if amount is None:
+            amount = 1
         url = formulate_request(api_fixer,base,to)
         response = requests.get(url).json()
         for to, rate in response["rates"].iteritems():
